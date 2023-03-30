@@ -1,3 +1,7 @@
+@props([
+    'footer_script' => '',
+])
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -32,4 +36,5 @@
             </main>
         </div>
     </body>
+    {{ $footer_script }}
 </html>

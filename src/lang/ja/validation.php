@@ -139,5 +139,16 @@ return [
         'name' => 'ユーザー名',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
+        'title' => 'タイトル',
+        'category' => 'カテゴリ',
+        'author' => '著者',
+        'purchase_date' => '購入日',
+        'evaluation' => '評価',
+        'memo' => 'メモ',
     ],
+    'values' => [
+        'purchase_date' => [
+            'today' => '本日'
+        ]
+    ]
 ];
