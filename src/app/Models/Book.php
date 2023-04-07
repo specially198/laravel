@@ -28,6 +28,11 @@ class Book extends Model
         'status' => '1',
     ];
 
+    public function reading_histories()
+    {
+        return $this->hasMany(ReadingHistory::class);
+    }
+
     public function categoryText(): Attribute
     {
         return Attribute::make(
