@@ -143,6 +143,7 @@ return [
         'category' => 'カテゴリ',
         'author' => '著者',
         'purchase_date' => '購入日',
+        'address' => '住所',
         'evaluation' => '評価',
         'memo' => 'メモ',
     ],

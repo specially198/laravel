@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BooksController;
+use App\Http\Controllers\ShopsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\ProfileController as ProfileOfAdminController;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,19 @@ Route::middleware('auth')->group(function () {
         Route::get('books/{book}/edit', 'edit')->name('edit');
         Route::put('books/{book}', 'update')->name('update');
         Route::delete('books/{book}', 'destroy')->name('destroy');
+    });
+
+    // shops
+    Route::controller(ShopsController::class)->name('shops.')->group(function() {
+        Route::get('shops', 'index')->name('index');
+        Route::get('shops/create', 'create')->name('create');
+        Route::post('shops/confirm', 'confirm')->name('confirm');
+        Route::post('shops/complete', 'store')->name('store');
+        Route::get('shops/{shop}', 'show')->name('show');
+        Route::get('shops/{shop}/edit', 'edit')->name('edit');
+        Route::post('shops/{shop}/edit-confirm', 'updateConfirm')->name('update_confirm');
+        Route::put('shops/{shop}/edit-complete', 'update')->name('update');
+        Route::delete('shops/{shop}', 'destroy')->name('destroy');
     });
 });
 
