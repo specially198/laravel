@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ReadingHistory extends Model
@@ -18,8 +20,22 @@ class ReadingHistory extends Model
 
     protected $dates = ['finished_date'];
 
-    public function help_request()
+    public function book()
     {
-        return $this->belongsTo(HelpRequest::class);
+        return $this->belongsTo(Book::class);
+    }
+
+    public function displayFinishedDate(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $this->finished_date != null ? Carbon::parse($this->finished_date)->format('Y年n月j日') : ''
+        );
+    }
+
+    public function formatYmdFinishedDate(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $this->finished_date != null ? Carbon::parse($this->finished_date)->format('Y-m-d') : ''
+        );
     }
 }

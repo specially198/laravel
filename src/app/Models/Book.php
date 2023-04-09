@@ -28,7 +28,7 @@ class Book extends Model
         'status' => '1',
     ];
 
-    public function reading_histories()
+    public function readingHistories()
     {
         return $this->hasMany(ReadingHistory::class);
     }

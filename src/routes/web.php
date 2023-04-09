@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BooksController;
+use App\Http\Controllers\ReadingHistoriesController;
 use App\Http\Controllers\ShopsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\ProfileController as ProfileOfAdminController;
@@ -40,6 +41,16 @@ Route::middleware('auth')->group(function () {
         Route::get('books/{book}/edit', 'edit')->name('edit');
         Route::put('books/{book}', 'update')->name('update');
         Route::delete('books/{book}', 'destroy')->name('destroy');
+    });
+
+    // reading_histories
+    Route::controller(ReadingHistoriesController::class)->name('reading_histories.')->group(function() {
+        Route::get('books/{book}/reading-histories/create', 'create')->name('create');
+        Route::post('books/{book}/reading-histories', 'store')->name('store');
+        Route::get('books/{book}/reading-histories/{reading_history}', 'show')->scopeBindings()->name('show');
+        Route::get('books/{book}/reading-histories/{reading_history}/edit', 'edit')->scopeBindings()->name('edit');
+        Route::put('books/{book}/reading-histories/{reading_history}', 'update')->name('update');
+        Route::delete('books/{book}/reading-histories/{reading_history}', 'destroy')->scopeBindings()->name('destroy');
     });
 
     // shops

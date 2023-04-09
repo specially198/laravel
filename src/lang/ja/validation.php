@@ -146,9 +146,13 @@ return [
         'address' => '住所',
         'evaluation' => '評価',
         'memo' => 'メモ',
+        'finished_date' => '読了日',
     ],
     'values' => [
         'purchase_date' => [
+            'today' => '本日'
+        ],
+        'finished_date' => [
             'today' => '本日'
         ]
     ]
