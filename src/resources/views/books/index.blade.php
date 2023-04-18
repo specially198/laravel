@@ -26,8 +26,10 @@
                             </path>
                         </svg>
                     </span>
-                    <input placeholder="Search"
+                    <form action="{{ route('books.index') }}">
+                    <input type="search" name="search" value="{{ request()->input('search') }}" placeholder="Search"
                         class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
+                    </form>
                 </div>
             </div>
             <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">

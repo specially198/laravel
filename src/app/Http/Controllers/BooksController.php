@@ -11,11 +11,20 @@ class BooksController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::orderBy('created_at', 'desc')->paginate(10);
+        $search = $request->search;
+        $query = Book::orderBy('created_at', 'desc');
+        if(!empty($search)) {
+            $query->where('title', 'LIKE', "%{$search}%")
+                ->orWhere("author", "LIKE", "%{$search}%")
+                ->orWhere("memo", "LIKE", "%{$search}%");
+        }
+        $books = $query->paginate(10);
+
         return view('books.index', [
             'books' => $books,
         ]);
