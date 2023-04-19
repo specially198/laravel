@@ -54,10 +54,21 @@ class BooksController extends Controller
             'author' => 'nullable|string',
             'purchase_date' => 'nullable|date|before_or_equal:today',
             'evaluation' => 'nullable|integer|between:1,5',
+            'img_file' => 'image|max:2048',
             'memo' => 'nullable|string',
         ]);
 
-        Book::create($request->all());
+        $inputs = $request->all();
+
+        // 画像ファイルを保存
+        $img_file = $request->file('img_file');
+        if ($img_file != null) {
+            $img_file_name = $img_file->getClientOriginalName();
+            $img_file->storeAs('public', $img_file_name);
+            $inputs['img_file_name'] = $img_file_name;
+        }
+
+        Book::create($inputs);
         return Redirect::route('books.index')->with('status', 'books-stored');
     }
 

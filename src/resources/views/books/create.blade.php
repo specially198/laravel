@@ -13,7 +13,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
-                    <form method="post" action="{{ route('books.store') }}" class="mt-6 space-y-6">
+                    <form method="post" action="{{ route('books.store') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
                         @csrf
                         <div>
                             <x-input-label for="title" value="タイトル" />
@@ -50,6 +50,11 @@
                             <x-input-label><input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" type="radio" name="evaluation" value="4" @if(old('evaluation')=='4') checked @endif> 4</x-input-label>
                             <x-input-label><input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" type="radio" name="evaluation" value="5" @if(old('evaluation')=='5') checked @endif> 5</x-input-label>
                             <x-input-error class="mt-2" :messages="$errors->get('evaluation')" />
+                        </div>
+                        <div>
+                            <x-input-label for="img_file" value="画像" />
+                            <x-text-input id="img_file" name="img_file" type="file" class="mt-1 block w-full text-sm border cursor-pointer" :value="old('img_file')" />
+                            <x-input-error class="mt-2" :messages="$errors->get('img_file')" />
                         </div>
                         <div>
                             <x-input-label for="memo" value="メモ" />
