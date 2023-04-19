@@ -40,6 +40,14 @@
                             <dt class="text-sm font-medium">評価</dt>
                             <dd class="mt-1 text-sm sm:col-span-2 sm:mt-0">{{ $book->evaluation }}</dd>
                         </div>
+                        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="text-sm font-medium">画像</dt>
+                            <dd class="mt-1 text-sm sm:col-span-2 sm:mt-0">
+                                @if (!empty($book->img_file_name))
+                                <img src="{{ asset('storage/'.$book->img_file_name) }}" width="100" height="100">
+                                @endif
+                            </dd>
+                        </div>
                         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="text-sm font-medium">ステータス</dt>
                             <dd class="mt-1 text-sm sm:col-span-2 sm:mt-0">{{ $book->status }}</dd>
