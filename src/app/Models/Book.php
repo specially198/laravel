@@ -17,6 +17,7 @@ class Book extends Model
         'author',
         'purchase_date',
         'evaluation',
+        'img_file_name',
         'status',
         'memo',
     ];
