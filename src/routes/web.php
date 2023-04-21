@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
         Route::get('books/{book}/edit', 'edit')->name('edit');
         Route::put('books/{book}', 'update')->name('update');
         Route::delete('books/{book}', 'destroy')->name('destroy');
+        Route::get('books/download/{book}', 'download')->name('download');
     });
 
     // reading_histories

@@ -45,6 +45,7 @@
                             <dd class="mt-1 text-sm sm:col-span-2 sm:mt-0">
                                 @if (!empty($book->img_file_name))
                                 <img src="{{ asset('storage/'.$book->img_file_name) }}" width="100" height="100">
+                                <a href="{{ route('books.download', $book->id) }}" class="mt-1 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white tracking-widest hover:bg-gray-700">ダウンロード</a>
                                 @endif
                             </dd>
                         </div>

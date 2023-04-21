@@ -148,4 +148,15 @@ class BooksController extends Controller
         $book->delete();
         return Redirect::route('books.index')->with('status', 'books-deleted');
     }
+
+    public function download(Book $book)
+    {
+        $file_path = 'public/'.$book->img_file_name;
+        $file_name = $book->img_file_name;
+
+        $mime_type = Storage::mimeType($file_path);
+        $headers = [['Content-Type' => $mime_type]];
+
+        return Storage::download($file_path, $file_name, $headers);
+    }
 }
