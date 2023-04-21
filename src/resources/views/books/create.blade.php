@@ -53,7 +53,7 @@
                         </div>
                         <div>
                             <x-input-label for="img_file" value="画像" />
-                            <x-text-input id="img_file" name="img_file" type="file" class="mt-1 block w-full text-sm border cursor-pointer" :value="old('img_file')" />
+                            <x-text-input id="img_file" name="img_file" type="file" class="mt-1 block w-full text-sm border cursor-pointer" />
                             <x-input-error class="mt-2" :messages="$errors->get('img_file')" />
                         </div>
                         <div>
