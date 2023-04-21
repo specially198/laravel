@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 
 class BooksController extends Controller
@@ -109,10 +110,29 @@ class BooksController extends Controller
             'author' => 'nullable|string',
             'purchase_date' => 'nullable|date|before_or_equal:today',
             'evaluation' => 'nullable|integer|between:1,5',
+            'img_file' => 'image|max:2048',
             'memo' => 'nullable|string',
         ]);
 
-        $book->update($request->all());
+        $inputs = $request->all();
+
+        // 画像ファイルを保存
+        $img_file = $request->file('img_file');
+        if ($img_file != null) {
+            // 旧ファイルを削除
+            if (!empty($book->img_file_name)) {
+                Storage::delete('public/'.$book->img_file_name);
+            }
+
+            $img_file_name = $img_file->getClientOriginalName();
+            $img_file->storeAs('public', $img_file_name);
+            $inputs['img_file_name'] = $img_file_name;
+        } else {
+            Storage::delete('public/'.$book->img_file_name);
+            $inputs['img_file_name'] = null;
+        }
+
+        $book->update($inputs);
 
         return Redirect::route('books.index')->with('status', 'books-updated');
     }

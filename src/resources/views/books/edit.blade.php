@@ -13,7 +13,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
-                    <form method="post" action="{{ route('books.update', $book->id) }}" class="mt-6 space-y-6">
+                    <form method="post" action="{{ route('books.update', $book->id) }}" class="mt-6 space-y-6" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div>
@@ -53,6 +53,24 @@
                             <x-input-error class="mt-2" :messages="$errors->get('evaluation')" />
                         </div>
                         <div>
+                            <x-input-label for="purchase_date" value="画像" />
+                            <div v-if="edit">
+                                @if (!empty($book->img_file_name))
+                                <img src="{{ asset('storage/'.$book->img_file_name) }}" width="100" height="100">
+                                <button type="button" v-on:click="edit=false"
+                                    class="btn_delete mt-2 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white tracking-widest hover:bg-gray-700">削除</button>
+                                <input type="hidden" name="img_file_name" value="{{ $book->img_file_name }}">
+                                @else
+                                <x-text-input id="img_file" name="img_file" type="file" class="mt-1 block w-full text-sm border cursor-pointer" />
+                                <x-input-error class="mt-2" :messages="$errors->get('img_file')" />
+                                @endif
+                            </div>
+                            <div v-else>
+                                <x-text-input id="img_file" name="img_file" type="file" class="mt-1 block w-full text-sm border cursor-pointer" />
+                                <x-input-error class="mt-2" :messages="$errors->get('img_file')" />
+                            </div>
+                        </div>
+                        <div>
                             <x-input-label for="memo" value="メモ" />
                             <textarea id="memo" name="memo" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full" rows="6">{{ old('memo', $book->memo) }}</textarea>
                             <x-input-error class="mt-2" :messages="$errors->get('memo')" />
@@ -66,4 +84,15 @@
             </div>
         </div>
     </div>
+
+    <x-slot name="footer_script">
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    edit: true
+                }
+            })
+        </script>
+    </x-slot>
 </x-app-layout>
