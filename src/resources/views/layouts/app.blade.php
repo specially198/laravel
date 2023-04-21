@@ -31,10 +31,11 @@
             @endif
 
             <!-- Page Content -->
-            <main>
+            <main id="app">
                 {{ $slot }}
             </main>
         </div>
     </body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.11/dist/vue.js"></script>
     {{ $footer_script }}
 </html>
