@@ -3,6 +3,7 @@
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\ReadingHistoriesController;
 use App\Http\Controllers\ShopsController;
+use App\Http\Controllers\TagsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\ProfileController as ProfileOfAdminController;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,17 @@ Route::middleware('auth')->group(function () {
         Route::get('books/{book}/reading-histories/{reading_history}/edit', 'edit')->scopeBindings()->name('edit');
         Route::put('books/{book}/reading-histories/{reading_history}', 'update')->name('update');
         Route::delete('books/{book}/reading-histories/{reading_history}', 'destroy')->scopeBindings()->name('destroy');
+    });
+
+    // tags
+    Route::controller(TagsController::class)->name('tags.')->group(function() {
+        Route::get('tags', 'index')->name('index');
+        Route::get('tags/create', 'create')->name('create');
+        Route::post('tags', 'store')->name('store');
+        Route::get('tags/{tag}', 'show')->name('show');
+        Route::get('tags/{tag}/edit', 'edit')->name('edit');
+        Route::put('tags/{tag}', 'update')->name('update');
+        Route::delete('tags/{tag}', 'destroy')->name('destroy');
     });
 
     // shops
