@@ -36,6 +36,6 @@
             </main>
         </div>
     </body>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.11/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
     {{ $footer_script }}
 </html>

@@ -87,12 +87,13 @@
 
     <x-slot name="footer_script">
         <script>
-            var app = new Vue({
-                el: '#app',
-                data: {
-                    edit: true
-                }
-            })
+            Vue.createApp({
+                data() {
+                    return {
+                        edit: true
+                    }
+                },
+            }).mount('#app');
         </script>
     </x-slot>
 </x-app-layout>
