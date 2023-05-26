@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
@@ -38,7 +39,11 @@ class BooksController extends Controller
      */
     public function create()
     {
-        return view('books.create');
+        $tags = Tag::orderBy('created_at', 'desc')->get();
+
+        return view('books.create', [
+            'tags' => $tags,
+        ]);
     }
 
     /**
@@ -69,7 +74,13 @@ class BooksController extends Controller
             $inputs['img_file_name'] = $img_file_name;
         }
 
-        Book::create($inputs);
+        $book = Book::create($inputs);
+
+        // タグ追加
+        if (array_key_exists('book_tags', $inputs)) {
+            $book->tags()->attach($inputs['book_tags']);
+        }
+
         return Redirect::route('books.index')->with('status', 'books-stored');
     }
 
@@ -92,7 +103,12 @@ class BooksController extends Controller
      */
     public function edit(Book $book)
     {
-        return view('books.edit', ['book' => $book]);
+        $tags = Tag::orderBy('created_at', 'desc')->get();
+
+        return view('books.edit', [
+            'book' => $book,
+            'tags' => $tags,
+        ]);
     }
 
     /**
@@ -134,6 +150,13 @@ class BooksController extends Controller
 
         $book->update($inputs);
 
+        // タグ更新
+        if (array_key_exists('book_tags', $inputs)) {
+            $book->tags()->sync($inputs['book_tags']);
+        } else {
+            $book->tags()->detach();
+        }
+
         return Redirect::route('books.index')->with('status', 'books-updated');
     }
 
@@ -145,6 +168,8 @@ class BooksController extends Controller
      */
     public function destroy(Book $book)
     {
+        $book->tags()->detach();
+
         $book->delete();
         return Redirect::route('books.index')->with('status', 'books-deleted');
     }

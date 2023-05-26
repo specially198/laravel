@@ -34,6 +34,26 @@
                             <x-input-error class="mt-2" :messages="$errors->get('category')" />
                         </div>
                         <div>
+                            <x-input-label for="tag" value="タグ" />
+                            <div class="flex">
+                                @foreach($tags as $tag)
+                                <div class="flex items-center mr-4">
+                                    @empty(old('book_tags'))
+                                    <input id="checkbox{{ $tag->id }}" type="checkbox" name="book_tags[]" value="{{ $tag->id }}"
+                                        class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                                        {{ $book->tags->contains('id', $tag->id) ? 'checked' : '' }}>
+                                    @else
+                                    <input id="checkbox{{ $tag->id }}" type="checkbox" name="book_tags[]" value="{{ $tag->id }}"
+                                        class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                                        {{ in_array($tag->id, (array)old('book_tags')) ? 'checked' : '' }}>
+                                    @endempty
+                                    <label for="checkbox{{ $tag->id }}" class="ml-2 text-sm font-medium">{{ $tag->name }}</label>
+                                </div>
+                                @endforeach
+                            </div>
+                            <x-input-error class="mt-2" :messages="$errors->get('tag')" />
+                        </div>
+                        <div>
                             <x-input-label for="author" value="著者" />
                             <x-text-input id="author" name="author" type="text" class="mt-1 block w-full" :value="old('author', $book->author)" />
                             <x-input-error class="mt-2" :messages="$errors->get('author')" />

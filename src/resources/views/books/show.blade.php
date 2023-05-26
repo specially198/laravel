@@ -28,6 +28,14 @@
                             <dt class="text-sm font-medium">カテゴリ</dt>
                             <dd class="mt-1 text-sm sm:col-span-2 sm:mt-0">{{ $book->category_text }}</dd>
                         </div>
+                        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="text-sm font-medium">タグ</dt>
+                            <dd class="mt-1 text-sm sm:col-span-2 sm:mt-0">
+                                @foreach($book->tags as $tag)
+                                    {{ $tag->name }}
+                                @endforeach
+                            </dd>
+                        </div>
                         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="text-sm font-medium">著者</dt>
                             <dd class="mt-1 text-sm sm:col-span-2 sm:mt-0">{{ $book->author }}</dd>

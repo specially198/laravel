@@ -94,7 +94,12 @@ class TagsController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        $tag->delete();
+        try {
+            $tag->delete();
+        } catch (\Illuminate\Database\QueryException $e) {
+            // 外部キー制約で削除できない
+            return Redirect::route('tags.index')->withErrors($e->getMessage());
+        }
         return Redirect::route('tags.index')->with('status', 'tags-deleted');
     }
 
