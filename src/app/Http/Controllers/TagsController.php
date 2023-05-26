@@ -97,4 +97,16 @@ class TagsController extends Controller
         $tag->delete();
         return Redirect::route('tags.index')->with('status', 'tags-deleted');
     }
+
+    public function search(Request $request)
+    {
+        $search_query = $request->input('query');
+        $query = Tag::orderBy('created_at', 'desc');
+        if(!empty($search_query)) {
+            $query->where('name', 'LIKE', "%{$search_query}%");
+        }
+        $tags = $query->limit(10)->get();
+
+        return response()->json($tags);
+    }
 }
