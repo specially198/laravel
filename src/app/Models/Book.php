@@ -35,6 +35,11 @@ class Book extends Model
         return $this->hasMany(ReadingHistory::class);
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class)->withTimestamps();
+    }
+
     public function categoryText(): Attribute
     {
         return Attribute::make(
